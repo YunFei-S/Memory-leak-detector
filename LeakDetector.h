@@ -1,34 +1,38 @@
-// æ³¨æ„, æˆ‘ä»¬çš„å¤´æ–‡ä»¶æ˜¯è¦è¢«åŒ…å«è¿›è¢«æµ‹è¯•çš„.cpp çš„, æ‰€ä»¥å¤´æ–‡ä»¶ä¸­ä¸è¦å‡ºçŽ°"å¤šä½™çš„"ä»£ç åŠåº“æ–‡ä»¶, ä»¥å…å½±å“è¢«æµ‹æ–‡ä»¶
+#pragma once
+
+
+
+// ×¢Òâ, ÎÒÃÇµÄÍ·ÎÄ¼þÊÇÒª±»°üº¬½ø±»²âÊÔµÄ.cpp µÄ, ËùÒÔÍ·ÎÄ¼þÖÐ²»Òª³öÏÖ"¶àÓàµÄ"´úÂë¼°¿âÎÄ¼þ, ÒÔÃâÓ°Ïì±»²âÎÄ¼þ
 #ifndef LEAK_DETECTOR_H_
 #define LEAK_DETECTOR_H_
-// æœ‰ä¸ªå°æŠ€å·§: C/C++åº“ä¸­æ ‡å‡†çš„å¤´æ–‡ä»¶å®å®šä¹‰æ˜¯è¿™ç§å½¢å¼: _STDIO_H( æ ‡å‡†è§„å®šä¿ç•™ä¸‹åˆ’çº¿ä½œå‰ç¼€ )
-// æ‰€ä»¥å¹³æ—¶æˆ‘ä»¬ä¸ºäº†é¿å…è‡ªå·±å®šä¹‰çš„å®æ„å¤–åœ°ä¸Žæ ‡å‡†å¤´æ–‡ä»¶å®šä¹‰çš„å®å‘ç”Ÿå†²çª, æˆ‘ä»¬ä½¿ç”¨ä¸‹åˆ’çº¿ä½œåŽç¼€, å¹¶ä¸”ä¸ç”¨ä¸‹åˆ’çº¿ä½œå‰ç¼€
+// ÓÐ¸öÐ¡¼¼ÇÉ: C/C++¿âÖÐ±ê×¼µÄÍ·ÎÄ¼þºê¶¨ÒåÊÇÕâÖÖÐÎÊ½: _STDIO_H( ±ê×¼¹æ¶¨±£ÁôÏÂ»®Ïß×÷Ç°×º )
+// ËùÒÔÆ½Ê±ÎÒÃÇÎªÁË±ÜÃâ×Ô¼º¶¨ÒåµÄºêÒâÍâµØÓë±ê×¼Í·ÎÄ¼þ¶¨ÒåµÄºê·¢Éú³åÍ», ÎÒÃÇÊ¹ÓÃÏÂ»®Ïß×÷ºó×º, ²¢ÇÒ²»ÓÃÏÂ»®Ïß×÷Ç°×º
 
 
 
-// é‡è½½ç‰ˆæœ¬: operator new/new[]( ), operator delete/delete[]( ) çš„å£°æ˜Ž
+// ÖØÔØ°æ±¾: operator new/new[]( ), operator delete/delete[]( ) µÄÉùÃ÷
 void* operator new(size_t size, char* file, size_t line);
 void* operator new[](size_t size, char* file, size_t line);
-// æ³¨æ„åˆ°, ä¸Šé¢æˆ‘ä»¬é‡è½½çš„å‡½æ•°ä¸­, ç¬¬ä¸€ä¸ªå‚æ•°å’Œç¬¬ä¸‰ä¸ªå‚æ•°çš„ç±»åž‹æ˜¯size_t
-// å…¶ä¸­ç¬¬ä¸€ä¸ªå‚æ•°sizeä¸º sizeofçš„è¿”å›žå€¼, æ‰€ä»¥ä¸ºsize_tç±»åž‹
-// ç¬¬ä¸‰ä¸ªå‚æ•°çš„å«ä¹‰ä¸º è¡Œå·, æ˜¯æˆ‘ä»¬é‡è½½ operator new/new[]( )åŽè‡ªå·±åŠ çš„å‚æ•°, æ­¤å¤„ä¹Ÿå¯ä»¥ç”¨unsigned int. ä½†æœ€å¥½ç”¨ size_t. åŽŸå› æ˜¯size_tçš„å¯ç§»æ¤æ€§å¥½. ç†ç”±è§ä¸Šé¢é“¾æŽ¥
+// ×¢Òâµ½, ÉÏÃæÎÒÃÇÖØÔØµÄº¯ÊýÖÐ, µÚÒ»¸ö²ÎÊýºÍµÚÈý¸ö²ÎÊýµÄÀàÐÍÊÇsize_t
+// ÆäÖÐµÚÒ»¸ö²ÎÊýsizeÎª sizeofµÄ·µ»ØÖµ, ËùÒÔÎªsize_tÀàÐÍ
+// µÚÈý¸ö²ÎÊýµÄº¬ÒåÎª ÐÐºÅ, ÊÇÎÒÃÇÖØÔØ operator new/new[]( )ºó×Ô¼º¼ÓµÄ²ÎÊý, ´Ë´¦Ò²¿ÉÒÔÓÃunsigned int. µ«×îºÃÓÃ size_t. Ô­ÒòÊÇsize_tµÄ¿ÉÒÆÖ²ÐÔºÃ. ÀíÓÉ¼ûÉÏÃæÁ´½Ó
 void operator delete(void* ptr);
 void operator delete[](void* ptr);
 
 
-// è¿™ä¸ªå®åœ¨LeakDetector.cppä¸­å®šä¹‰, ä»¥é˜²æ­¢LeakDetector.cppä¸­, æˆ‘ä»¬è‡ªå·±é‡è½½çš„ operator new/new[]( ) è¢«å®æ›¿æ¢. è€Œè¿™ä¸ªå®åœ¨è¢«æµ‹è¯•æ–‡ä»¶ä¸­æœªå®šä¹‰(æˆ‘ä»¬é™¤è¿‡åœ¨è¢«æµ‹è¯•æ–‡ä»¶åŒ…å«LeakDetector.hå¤´æ–‡ä»¶å¤–, ä¸æ”¹å˜è¢«æµ‹è¯•æ–‡ä»¶çš„ä»£ç ), æ‰€ä»¥ æ›¿æ¢è¢«æµ‹è¯•æ–‡ä»¶newè¿ç®—ç¬¦, ä¼ è¿›ä¸¤ä¸ªå‚æ•° æ–‡ä»¶å å’Œ è¡Œå· ä½¿ç”¨æˆ‘ä»¬è‡ªå·±çš„é‡è½½ç‰ˆæœ¬operator new/new[]( size_t size, char* file, size_t line )
+// Õâ¸öºêÔÚLeakDetector.cppÖÐ¶¨Òå, ÒÔ·ÀÖ¹LeakDetector.cppÖÐ, ÎÒÃÇ×Ô¼ºÖØÔØµÄ operator new/new[]( ) ±»ºêÌæ»». ¶øÕâ¸öºêÔÚ±»²âÊÔÎÄ¼þÖÐÎ´¶¨Òå(ÎÒÃÇ³ý¹ýÔÚ±»²âÊÔÎÄ¼þ°üº¬LeakDetector.hÍ·ÎÄ¼þÍâ, ²»¸Ä±ä±»²âÊÔÎÄ¼þµÄ´úÂë), ËùÒÔ Ìæ»»±»²âÊÔÎÄ¼þnewÔËËã·û, ´«½øÁ½¸ö²ÎÊý ÎÄ¼þÃû ºÍ ÐÐºÅ Ê¹ÓÃÎÒÃÇ×Ô¼ºµÄÖØÔØ°æ±¾operator new/new[]( size_t size, char* file, size_t line )
 #ifndef NEW_OVERLOAD_IMPLEMENTATION_
 #define new new( __FILE__, __LINE__ )
-// é¢„å®šä¹‰å®: 
-// __FILE__(ä¸¤ä¸ªä¸‹åˆ’çº¿): ä»£è¡¨å½“å‰æºä»£ç æ–‡ä»¶åçš„å­—ç¬¦ä¸²æ–‡å­—(æˆ‘ä»¬ç”¨è¿™ä¸ªå®èŽ·å¾—å­˜åœ¨å†…å­˜æ³„æ¼æ–‡ä»¶çš„æ–‡ä»¶å)
-// __LINE__(ä¸¤ä¸ªä¸‹åˆ’çº¿): ä»£è¡¨å½“å‰æºä»£ç æ–‡ä»¶ä¸­çš„è¡Œå·çš„æ•´æ•°å¸¸é‡(æˆ‘ä»¬ç”¨è¿™ä¸ªå®èŽ·å¾—å­˜åœ¨å†…å­˜æ³„æ¼æ–‡ä»¶å†…å­˜æ³„æ¼çš„è¡Œå·)
+// Ô¤¶¨Òåºê: 
+// __FILE__(Á½¸öÏÂ»®Ïß): ´ú±íµ±Ç°Ô´´úÂëÎÄ¼þÃûµÄ×Ö·û´®ÎÄ×Ö(ÎÒÃÇÓÃÕâ¸öºê»ñµÃ´æÔÚÄÚ´æÐ¹Â©ÎÄ¼þµÄÎÄ¼þÃû)
+// __LINE__(Á½¸öÏÂ»®Ïß): ´ú±íµ±Ç°Ô´´úÂëÎÄ¼þÖÐµÄÐÐºÅµÄÕûÊý³£Á¿(ÎÒÃÇÓÃÕâ¸öºê»ñµÃ´æÔÚÄÚ´æÐ¹Â©ÎÄ¼þÄÚ´æÐ¹Â©µÄÐÐºÅ)
 #endif
 
 
 class LeakDetector {
 public:
-	// LeakDetector.cppå’Œè¢«æµ‹è¯•çš„.cppéƒ½ä¼šåŒ… LeakDetector.hå¤´æ–‡ä»¶
-	// å› æ­¤ä¸¤ä¸ªæºæ–‡ä»¶ä¸­ä¼šåˆ›å»ºä¸¤ä¸ªé™æ€LeakDetectorç±»å¯¹è±¡ exitCounter (ä¸¤ä¸ªé™æ€ç±»å¯¹è±¡åŒå, ä½†æ˜¯å®ƒä»¬çš„é“¾æŽ¥å±žæ€§å‡ä¸ºå†…é“¾æŽ¥(åªåœ¨å½“å‰æºæ–‡ä»¶æœ‰æ•ˆ), å› æ­¤ä¸ä¼šé‡å®šä¹‰), å¦‚æžœæ­¤æ—¶ä¸¤ä¸ªå¯¹è±¡æžæž„, ä¼šè°ƒç”¨ä¸¤æ¬¡æžæž„å‡½æ•°, è°ƒç”¨ä¸¤æ¬¡å†…å­˜æ³„æ¼æ£€æµ‹å‡½æ•°. è€Œæˆ‘ä»¬çš„é¢„æœŸæ˜¯åªè°ƒç”¨ä¸€æ¬¡å†…å­˜æ³„æ¼æ£€æµ‹å‡½æ•°. æ‰€ä»¥æˆ‘ä»¬å£°æ˜Žä¸€ä¸ªæ‰€æœ‰ç±»å¯¹è±¡å…±äº«çš„é™æ€å˜é‡æ¥å®žçŽ°æˆ‘ä»¬çš„ç›®çš„
+	// LeakDetector.cppºÍ±»²âÊÔµÄ.cpp¶¼»á°ü LeakDetector.hÍ·ÎÄ¼þ
+	// Òò´ËÁ½¸öÔ´ÎÄ¼þÖÐ»á´´½¨Á½¸ö¾²Ì¬LeakDetectorÀà¶ÔÏó exitCounter (Á½¸ö¾²Ì¬Àà¶ÔÏóÍ¬Ãû, µ«ÊÇËüÃÇµÄÁ´½ÓÊôÐÔ¾ùÎªÄÚÁ´½Ó(Ö»ÔÚµ±Ç°Ô´ÎÄ¼þÓÐÐ§), Òò´Ë²»»áÖØ¶¨Òå), Èç¹û´ËÊ±Á½¸ö¶ÔÏóÎö¹¹, »áµ÷ÓÃÁ½´ÎÎö¹¹º¯Êý, µ÷ÓÃÁ½´ÎÄÚ´æÐ¹Â©¼ì²âº¯Êý. ¶øÎÒÃÇµÄÔ¤ÆÚÊÇÖ»µ÷ÓÃÒ»´ÎÄÚ´æÐ¹Â©¼ì²âº¯Êý. ËùÒÔÎÒÃÇÉùÃ÷Ò»¸öËùÓÐÀà¶ÔÏó¹²ÏíµÄ¾²Ì¬±äÁ¿À´ÊµÏÖÎÒÃÇµÄÄ¿µÄ
 	static size_t _callCount;
 
 	LeakDetector() { ++_callCount; }
@@ -38,7 +42,7 @@ private:
 	void _LeakDetector();
 };
 
-// é™æ€å¯¹è±¡
+// ¾²Ì¬¶ÔÏó
 static LeakDetector exitCounter;
 
 
